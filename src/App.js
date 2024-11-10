@@ -1,5 +1,14 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { useStopwatch } from 'react-timer-hook';
+
+const State = {
+  NoSong : 'NO_SONG',
+  NotStarted : 'NOT_STARTED',
+  Playing : 'PLAYING',
+  Paused : 'PAUSED',
+  Finished : 'FINISHED',
+};
 
 const LyricBody = () => {
   return (
@@ -9,6 +18,21 @@ const LyricBody = () => {
   )
 } //Lyric body
 
+const Timer = ({time, pauseTime}) => {
+  return (
+    <div>
+      <h1>{time.seconds}</h1>
+    </div>
+  )
+}  //Song timer
+
+const ProgresBar = () => {
+  return (
+    <div>
+
+    </div>
+  )
+} //Progress Bar for the Song
 const InputBox = ({input, handleInputChange}) => {
   return (
     <div>
@@ -48,19 +72,25 @@ const PauseButton = ({onClick}) => {
 }
 
 function App() {
-  const [time, setTime] = useState(0); 
-  const [startTime, setStartTime] = useState(null); 
+  const time = useStopwatch({ autoStart: false}) 
   const [input, setInput] = useState("");
+  const [state, setState] = useState(State.NoSong);
+  const [endTime, setEndTime] = useState(0);
+
 
   useEffect(() => {
-    let interval;
-    setStartTime(Date.now());
-    interval = setInterval(() => {
-      const elapsedTime = Date.now() - startTime; 
-      setTime(elapsedTime / 1000); 
-    }, 100); 
-    return () => clearInterval(interval);
-  }, [startTime]);
+    if (state === State.Playing) {
+      time.start();
+    } else if (state === State.Finished) {
+      time.pause();
+    } else if (state === State.Paused) {
+      time.pause();
+    } else if (state === State.NotStarted) {
+      time.reset(0,false);
+      setInput("");
+    } 
+    return;
+  }, [state]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -68,20 +98,24 @@ function App() {
   }
 
   const handleSearch = () => {
-
+    setState(State.NotStarted);
   }
 
   const handlePlay = () => {
-
+    setState(State.Playing);
   }
 
   const handlePause = () => {
-
+    if (state === State.Playing) {
+      setState(State.Paused);
+    }
   }
 
   return (
     <div>
-      <h1>help</h1>
+      <Timer
+        time = {time}
+        />
       <InputBox
         input = {input}
         handleInputChange={handleInputChange}
