@@ -28,11 +28,14 @@ const LyricBody = (time) => {
   nextTime = nTime;
   return (
     <div>
-      <span>{text1}</span>
+      <span
+        className="previous-lyrics">{text1}</span>
       <div>
-        <span>{text2}</span>
+        <span
+          className="current-lyrics">{text2}</span>
       </div>
-      <span>{text3}</span>
+      <span 
+        className="future-lyrics">{text3}</span>
     </div>
   )
 } //Lyric body
@@ -60,7 +63,8 @@ const Timer = ({time, endTime}) => {
   let t2 = msToTime(endTime);
   return (
     <div>
-      <h1>{t1} /{t2}</h1>
+      <h1
+      class="elapsed-time">{t1} /{t2}</h1>
     </div>
   )
 }  //Song timer
@@ -69,7 +73,8 @@ const ProgressBar = ({ time, endTime }) => {
   var progress = time / endTime;
   return (
     <div>
-      <progress value={progress}/>
+      <progress value={progress}
+        className="progress-bar-container"/>
     </div>
   )
 } //Progress Bar for the Song
@@ -82,6 +87,7 @@ const InputBox = ({input, handleInputChange}) => {
         placeholder = "Enter Spotify URL"
         value = {input}
         onChange = {handleInputChange}
+        className="search-bar-container"
       />
     </div>
   )
@@ -89,7 +95,9 @@ const InputBox = ({input, handleInputChange}) => {
 
 const SearchButton = ({onClick}) => {
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick}
+    src="assets/search-button.svg" 
+    className="search-bar-button">
       Search
     </button>
   )
@@ -98,7 +106,9 @@ const SearchButton = ({onClick}) => {
 const PlayButton = ({onClick, disabled}) => {
   return (
     <button onClick={onClick}
-    disabled = {disabled}>
+    disabled = {disabled}
+    img src="assets/play-button.svg" 
+    className="play-button">
       Play
     </button>
   )
@@ -107,7 +117,9 @@ const PlayButton = ({onClick, disabled}) => {
 const PauseButton = ({onClick, disabled}) => {
   return (
     <button onClick={onClick}
-    disabled = {disabled}>
+    disabled = {disabled}
+    src="assets/pause-button.svg" 
+    className="pause-button">
       Pause
     </button>
   )
@@ -187,33 +199,54 @@ function App() {
   }
 
   return (
-    <div>
-      
-      <Timer
-        time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
-        endTime = {endTime}
-        />
-      <InputBox
+    <div class="main-page"> 
+      <div class="top-row-container">
+        <div class="title-container">
+          <div class="title">
+            <h1>JohnKaraoke</h1>
+          </div>
+        </div>
+        <InputBox
         input = {input}
         handleInputChange={handleInputChange}
-      />
-      <SearchButton
-        onClick={handleSearch}
-      />
-      <PlayButton
-        onClick={handlePlay}
-        disabled = {state === State.NoSong}
-      />
-      <PauseButton
-        onClick={handlePause}
-        disabled = {state === State.NoSong}
-      />
-      <LyricBody
-        time = {time.getElapsedRunningTime()}/>
+        />
+        <div>
+          <SearchButton
+            onClick={handleSearch}
+          />
+        </div>  
+      </div>
+    
+      <div class="middle-row-container">
+        <LyricBody
+          time = {time.getElapsedRunningTime()}/>
+      </div>
+  
+        <div class="bottom-row-container">
+          <div class="buttons-container">
+            <PlayButton
+              onClick={handlePlay}
+              disabled = {state === State.NoSong}
+            />
+            <PauseButton
+              onClick={handlePause}
+              disabled = {state === State.NoSong}
+          />
+        </div>
+        
 
-      <ProgressBar
-        time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
-        endTime = {endTime}/>
+        <div>
+          <ProgressBar
+            time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
+            endTime = {endTime}/>
+            <div>
+            <Timer
+              time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
+              endTime = {endTime}
+            />
+            </div>
+        </div>
+    </div>
     </div>
   );
 }
