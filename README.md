@@ -1,6 +1,6 @@
-### 'Requires PHP'
+### Requires PHP
 ### `cd spotify-lyrics-api`
-### 'Requires Spotify Cookie/Token'
+### Requires Spotify Cookie/Token
 ### `export SP_DC=[token here and remove the square brackets]`
 ### `php -S localhost:8000 api/index.php`
 
