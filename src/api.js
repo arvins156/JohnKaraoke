@@ -1,4 +1,4 @@
-const APIURL="http://localhost:8000/?url=https://open.spotify.com/track/7aux5UvnlBDYlrlwoczifW?si=566366fc44ec4012&format=lrc"
+const APIURL="http://localhost:8000/?url="
 const URL='https://open.spotify.com/track/7aux5UvnlBDYlrlwoczifW?si=566366fc44ec4012'
 const OPTION = {
     method: 'GET',
