@@ -58,6 +58,7 @@
   .search-bar-button {
     width: 5vw;
     height: 5vh;
+    cursor: pointer;   
   }
 
   .middle-row-container {
@@ -86,18 +87,22 @@
 
   .play-button {
     width: 5vw;
+    cursor: pointer;   
   }
   
   .pause-button {
     width: 5vw;
+    cursor: pointer;   
   }
 
   .volume-up-button {
     width: 5vw;
+    cursor: pointer;   
   }
 
   .volume-down-button {
     width: 5vw;
+    cursor: pointer;   
   }
 
   /* Container for the progress bar */
