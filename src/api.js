@@ -9,10 +9,9 @@ export const getLyrics = (values) => {
     .then(reponse => {
         return reponse.json()
     })
-    .then(data => {
-        return data.lines})
+    .then(data => data.lines)
     .then(lines => {
-        return lines.map(obj => {
+        lines.map(obj => {
             return obj.startTimeMs = Number(obj.startTimeMs);
         })
     })
