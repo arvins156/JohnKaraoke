@@ -1,4 +1,4 @@
-import './App.css';
+import './styles.css';
 import { getLyrics } from './api.js';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from "react-use-precision-timer";
@@ -37,18 +37,41 @@ const LyricBody = (time) => {
   )
 } //Lyric body
 
+function msToTime(s) {
+  var ms = s % 1000;
+  s = (s - ms) / 1000;
+  var secs = s % 60;
+  s = (s - secs) / 60;
+  var mins = s % 60;
+  var hrs = (s - mins) / 60;
+
+  if (mins < 10) {
+    mins = "0" + mins;
+  }
+  if (secs < 10) {
+    secs = "0" + secs;
+  }
+
+  return mins + ':' + secs;
+}
+
 const Timer = ({time, endTime}) => {
+  let t1 = msToTime(time);
+  let t2 = msToTime(endTime);
   return (
     <div>
-      <h1>{time.getElapsedRunningTime()} /{endTime}</h1>
+      <h1>{t1} /{t2}</h1>
     </div>
   )
 }  //Song timer
 
-const ProgresBar = () => {
+const ProgressBar = ({ time, endTime }) => {
+  var progress = time / endTime;
+  var widthBar = progress * 500;
+  console.log(widthBar);
   return (
-    <div>
-      
+    <div className="progress-bar-container">
+      <div className="progress-bar" style={{width: '$'+{widthBar}+'%'}} /> 
     </div>
   )
 } //Progress Bar for the Song
@@ -119,9 +142,9 @@ function App() {
     } else if (state === State.NotStarted) {
       clearInterval(interval)
       setUpdateTimer(0);
-      time.start();
-      time.pause();
+      time.stop();
       setInput("");
+      setEndTime(0);
     } 
     if (time.getElapsedRunningTime() >= endTime) {
       setState(State.Finished);
@@ -136,8 +159,13 @@ function App() {
   }
 
   const handleSearch = () => {
+    beforeText = "";
+    currentText ="";
+    afterText ="";
+    nextTime = 0;
+    nextPos = 1;
+    stateOfLines =[];
     setState(State.NotStarted);
-
     getLyrics(input)
     .then(lines => {
       stateOfLines = lines;
@@ -164,7 +192,7 @@ function App() {
     <div>
       
       <Timer
-        time = {time}
+        time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
         endTime = {endTime}
         />
       <InputBox
@@ -176,14 +204,18 @@ function App() {
       />
       <PlayButton
         onClick={handlePlay}
-        disabled = {state == State.NoSong}
+        disabled = {state === State.NoSong}
       />
       <PauseButton
         onClick={handlePause}
-        disabled = {state == State.NoSong}
+        disabled = {state === State.NoSong}
       />
       <LyricBody
         time = {time.getElapsedRunningTime()}/>
+
+      <ProgressBar
+        time = {time.getElapsedRunningTime()}
+        endTime = {endTime}/>
     </div>
   );
 }

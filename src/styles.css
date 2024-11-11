@@ -105,18 +105,22 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    
-    gap: 1vw;
+    overflow: hidden;
+    gap: 10px;
+    width: 500px;
+    height: 25px;
+    border: 1px solid;
+    border-color: black;
     /* position: relative; */
   }
   
   /* The actual progress indicator */
   .progress-bar {
-    width: 70vw;
-    height: 2.5vh;
-    border-radius: 8px;
+    position:relative;
+    height: 25px;
     background-color: #82a1f1;
-    transition: width 0.1s ease;
+    border-radius: 25px;
+    transition: width 0.3s ease;
   }
 
   .elapsed-time {
