@@ -4,12 +4,16 @@
   
   body {
     background-color: #25283a;
+    margin-left: 2%;
   }
 
   .top-row-container {
+    position: fixed;
+    bottom: 90%;
+    left: 16%;
     display: flex;
     flex-direction: row;
-    gap: 3vw;
+    gap: 2vw;
   }
 
   .title-container {
@@ -22,11 +26,19 @@
     color: #b69bf1;
   }
 
+  .search-bar {
+    color: rgb(23, 83, 133);
+  }
+  .logo {
+    width: 3vw;
+    height: 3vh;
+  }
+
   .search-bar-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1vw;
+    gap: 0.05vw;
   }
 
   .search-bar {
@@ -37,20 +49,22 @@
     width: 50vw;
     height: 5vh;
     min-height: 30px;
-    border-radius: 25px;
+    border-radius: 15px;
     padding-left: 15px;
     border-radius: 5;
     overflow: hidden;
   }
 
-  .search-button {
-    
+  .search-bar-button {
+    width: 5vw;
+    height: 5vh;
   }
 
   .middle-row-container {
     position: fixed;
-    bottom: 50%;
+    bottom: 48%;
     left: 50%;
+    transform: translate(-50%, +20%);
   }
 
   .bottom-row-container {
@@ -58,7 +72,8 @@
     align-items: center;
     gap: 1vw;
     position: fixed;
-    bottom: 1%;
+    bottom: 3%;
+    left: 6%;
   }
 
   .buttons-container {
@@ -66,7 +81,7 @@
     flex-direction: row;
     align-items: center;
     width: 10vw;
-    gap: 0.1vw;
+    gap: 0.15vw;
   }
 
   .play-button {
