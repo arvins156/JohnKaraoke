@@ -9,7 +9,7 @@ const updateText = (lyrics, currentTime, nextTime, beforeText, currentText, afte
     else {
         nextPos++;
         afterText = lyrics[nextPos].words;
-        nextTime = lyrics[nextPos].timeTag;
+        nextTime = lyrics[nextPos].startTimeMs;
     }
 
     return { beforeText, currentText, afterText }

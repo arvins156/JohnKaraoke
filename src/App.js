@@ -86,7 +86,6 @@ function App() {
   const [beforeText, setBeforeText] = useState("");
   const [currentText, setCurrentText] = useState("");
   const [afterText, setAfterText] = useState("");
-  const [lyrics, setLyrics] = useState(null);
   const [nextTime, setNextTime] = useState(0);
   const [nextPos, setNextPos] = useState(1);
   const [stateOfLines, setStateOfLines] = useState([]);
@@ -125,7 +124,15 @@ function App() {
 
   const handleSearch = () => {
     setState(State.NotStarted);
-    
+
+    getLyrics(input)
+    .then(lines => {
+      setStateOfLines(lines);
+      setCurrentText(stateOfLines[0].words);
+      setAfterText(stateOfLines[1].words);
+      setNextTime(stateOfLines[1].startTimeMs);
+    })
+    .catch(error => console.error("Error fetching lyrics:", error)); 
   }
 
   const handlePlay = () => {
@@ -138,16 +145,9 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    getLyrics()
-    .then(lines => {
-      setStateOfLines(lines);
-    })
-    .catch(error => console.error("Error fetching lyrics:", error));
-  }, [])
-
   return (
     <div>
+      
       <Timer
         time = {time}
         />
@@ -164,6 +164,16 @@ function App() {
       <PauseButton
         onClick={handlePause}
       />
+      <LyricBody
+        lyrics = {stateOfLines}
+        time = {time}
+        nextTime = {nextTime}
+        beforeText = {beforeText}
+        currentText = {currentText}
+        afterText = {afterText}
+        nextPos = {nextPos} />
+        
+
     </div>
   );
 }
