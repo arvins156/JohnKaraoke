@@ -1,0 +1,98 @@
+* {
+    font-family: "Doto", sans-serif;
+  }
+  
+  body {
+    background-color: #25283a;
+    margin-left: 30px;
+  }
+
+  .top-row-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .title-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .title {
+    color: #b69bf1;
+  }
+
+  .search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    background-color: #82a1f1;
+    width: 500px;
+    height: 40px;
+    border-radius: 25px;
+    padding-left: 15px;
+    border-radius: 5;
+    overflow: hidden;
+  }
+
+  .search-button {
+    
+  }
+  
+  /* Container for the progress bar */
+  .progress-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    gap: 10px;   
+    /* position: relative; */
+  }
+  
+  /* The actual progress indicator */
+  .progress-bar {
+    width: 500px;
+    height: 25px;
+    background-color: #82a1f1;
+    border-radius: 25px;
+    transition: width 0.3s ease;
+  }
+  
+  .play-button {
+    
+  }
+  
+  .pause-button {
+    
+  }
+  
+  .elapsed-time {
+    text-align: right;
+    color: white;
+  }
+
+  .current-lyrics {
+
+    color: white;
+    text-align: center;
+    transition: background-color 0.5s ease /* for transparency transition */
+  }
+
+  .future-lyrics {
+
+    color: white;
+    text-align: center;
+    transition: background-color 0.5s ease; /* for transparency transition */
+  }
+
+  .previous-lyrics {
+
+    color: white;
+    text-align: center;
+    transition: background-color 0.5s ease; /* for transparency transition */
+  }
