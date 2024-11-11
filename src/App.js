@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from "react-use-precision-timer";
+import { updateText } from './utils';
 
 const State = {
   NoSong : 'NO_SONG',
@@ -11,11 +12,12 @@ const State = {
 };
 
 const LyricBody = ({lyrics, time, nextTime, beforeText, currentText, afterText, nextPos}) => {
-  //const {text1, text2, text3} = updateText(lyrics, time, nextTime, beforeText, currentText, afterText, nextPos);
+  const {text1, text2, text3} = updateText(lyrics, time, nextTime, beforeText, currentText, afterText, nextPos);
   return (
     <div>
-      
-      
+      <span>{text1}</span>
+      <span>{text2}</span>
+      <span>{text3}</span>
     </div>
   )
 } //Lyric body
@@ -83,6 +85,8 @@ function App() {
   const [beforeText, setBeforeText] = useState("");
   const [currentText, setCurrentText] = useState("");
   const [afterText, setAfterText] = useState("");
+  const [lyrics, setLyrics] = useState(null);
+  const [nextPos, setNextPos] = useState(1);
 
   useEffect(() => {
     let interval;

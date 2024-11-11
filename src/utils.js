@@ -14,11 +14,10 @@ const updateText = (lyrics, currentTime, nextTime, beforeText, currentText, afte
 
     return { beforeText, currentText, afterText }
 }
-    /*beforeText = "";
+    /*
     currentText = lyrics[0].words;
     afterText = lyrics[1].words;
     nextTime = lyrics[1].timeTag;
 
-    nextPos = 1;
 */
 export{updateText}
