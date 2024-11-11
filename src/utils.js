@@ -1,18 +1,22 @@
 const updateText = (lyrics, currentTime, nextTime, beforeText, currentText, afterText, nextPos) => {
-    if (currentTime < nextTime)
-        return;
-
-    beforeText = currentText;
-    currentText = afterText;
-    if (nextPos + 1 >= lyrics.length)
-        afterText = "";
-    else {
-        nextPos++;
-        afterText = lyrics[nextPos].words;
-        nextTime = lyrics[nextPos].startTimeMs;
+    let text1 = beforeText;
+    let text2 = currentText;
+    let text3 = afterText;
+    let nTime = nextTime;
+    let pos = nextPos;
+    if (currentTime.time >= nextTime) {
+        text1 = currentText;
+        text2 = afterText;
+        if (nextPos + 1 >= lyrics.length)
+            text3 = "";
+        else {
+            pos++;
+            text3 = lyrics[pos].words;
+            nTime = lyrics[pos].startTimeMs;
+        }
+        return { text1, text2, text3, nTime, pos}
     }
-
-    return { beforeText, currentText, afterText }
+    return { text1, text2, text3, nTime, pos};
 }
     /*
     currentText = lyrics[0].words;
