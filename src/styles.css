@@ -58,7 +58,11 @@
   .search-bar-button {
     width: 5vw;
     height: 5vh;
-    cursor: pointer;   
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden; 
   }
 
   .middle-row-container {
@@ -87,12 +91,20 @@
 
   .play-button {
     width: 5vw;
-    cursor: pointer;   
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
   }
   
   .pause-button {
     width: 5vw;
-    cursor: pointer;   
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;    
   }
 
   .volume-up-button {
@@ -116,7 +128,7 @@
     height: 25px;
     border: 1px solid;
     border-color: black;
-    /* position: relative; */
+    position: relative;
   }
   
   /* The actual progress indicator */

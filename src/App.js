@@ -205,15 +205,15 @@ function App() {
             <h1>JohnKaraoke</h1>
           </div>
         </div>
-        <InputBox
-        input = {input}
-        handleInputChange={handleInputChange}
-        />
-        <div>
+        <div class="search-bar-container">
+          <InputBox
+            input = {input}
+            handleInputChange={handleInputChange}
+          />
           <SearchButton
             onClick={handleSearch}
           />
-        </div>  
+        </div>
       </div>
     
       <div className="middle-row-container">
