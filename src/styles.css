@@ -4,27 +4,41 @@
   
   body {
     background-color: #25283a;
-    margin-left: 30px;
+    margin-left: 2%;
   }
 
   .top-row-container {
+    position: fixed;
+    bottom: 90%;
+    left: 16%;
     display: flex;
     flex-direction: row;
+    gap: 2vw;
   }
 
   .title-container {
     display: flex;
     flex-direction: row;
+    gap: 3vw;
   }
 
   .title {
     color: #b69bf1;
   }
 
+  .search-bar {
+    color: rgb(23, 83, 133);
+  }
+  .logo {
+    width: 3vw;
+    height: 3vh;
+  }
+
   .search-bar-container {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 0.05vw;
   }
 
   .search-bar {
@@ -32,46 +46,90 @@
     justify-content: space-between;
     align-items: center; 
     background-color: #82a1f1;
-    width: 500px;
-    height: 40px;
-    border-radius: 25px;
+    width: 50vw;
+    height: 5vh;
+    min-height: 30px;
+    border-radius: 15px;
     padding-left: 15px;
     border-radius: 5;
     overflow: hidden;
   }
 
-  .search-button {
-    
+  .search-bar-button {
+    width: 5vw;
+    height: 5vh;
+    cursor: pointer;   
+  }
+
+  .middle-row-container {
+    position: fixed;
+    bottom: 48%;
+    left: 50%;
+    transform: translate(-50%, +20%);
+  }
+
+  .bottom-row-container {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    position: fixed;
+    bottom: 3%;
+    left: 6%;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 10vw;
+    gap: 0.15vw;
+  }
+
+  .play-button {
+    width: 5vw;
+    cursor: pointer;   
   }
   
+  .pause-button {
+    width: 5vw;
+    cursor: pointer;   
+  }
+
+  .volume-up-button {
+    width: 5vw;
+    cursor: pointer;   
+  }
+
+  .volume-down-button {
+    width: 5vw;
+    cursor: pointer;   
+  }
+
   /* Container for the progress bar */
   .progress-bar-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     overflow: hidden;
-    gap: 10px;   
+    gap: 10px;
+    width: 500px;
+    height: 25px;
+    border: 1px solid;
+    border-color: black;
     /* position: relative; */
   }
   
   /* The actual progress indicator */
   .progress-bar {
-    width: 500px;
+    position:relative;
     height: 25px;
     background-color: #82a1f1;
     border-radius: 25px;
     transition: width 0.3s ease;
   }
-  
-  .play-button {
-    
-  }
-  
-  .pause-button {
-    
-  }
-  
+
   .elapsed-time {
+    width: 10px;
     text-align: right;
     color: white;
   }
