@@ -7,16 +7,24 @@
     margin-left: 30px;
   }
 
-  .search-bar-container {
+  .top-row-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    text-align: center;
+  }
 
+  .title-container {
+    display: flex;
+    flex-direction: row;
   }
 
   .title {
     color: #b69bf1;
+  }
+
+  .search-bar-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   .search-bar {
@@ -42,6 +50,7 @@
     flex-direction: row;
     align-items: center;
     overflow: hidden;
+    gap: 10px;   
     /* position: relative; */
   }
   
