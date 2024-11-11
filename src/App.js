@@ -1,4 +1,5 @@
 import './App.css';
+import { getLyrics } from './api.js';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from "react-use-precision-timer";
 import { updateText } from './utils';
@@ -86,7 +87,9 @@ function App() {
   const [currentText, setCurrentText] = useState("");
   const [afterText, setAfterText] = useState("");
   const [lyrics, setLyrics] = useState(null);
+  const [nextTime, setNextTime] = useState(0);
   const [nextPos, setNextPos] = useState(1);
+  const [stateOfLines, setStateOfLines] = useState([]);
 
   useEffect(() => {
     let interval;
@@ -122,6 +125,7 @@ function App() {
 
   const handleSearch = () => {
     setState(State.NotStarted);
+    
   }
 
   const handlePlay = () => {
@@ -133,6 +137,14 @@ function App() {
       setState(State.Paused);
     }
   }
+
+  useEffect(() => {
+    getLyrics()
+    .then(lines => {
+      setStateOfLines(lines);
+    })
+    .catch(error => console.error("Error fetching lyrics:", error));
+  }, [])
 
   return (
     <div>
