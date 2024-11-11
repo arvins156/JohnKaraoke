@@ -32,13 +32,13 @@ const LyricBody = (time) => {
   return (
     <div>
       <div className="previous-lyrics">
-        <span>{text1}</span>
+        <h2>{text1}</h2>
       </div>
       <div className="current-lyrics">
-        <span>{text2}</span>
+        <h2>{text2}</h2>
       </div>
       <div  className="future-lyrics">
-        <span>{text3}</span>
+        <h2>{text3}</h2>
       </div>
     </div>
   )

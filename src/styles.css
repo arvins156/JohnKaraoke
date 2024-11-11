@@ -148,7 +148,7 @@
 
   .current-lyrics {
 
-    color: white;
+    color: grey;
     text-align: center;
     transition: background-color 0.5s ease /* for transparency transition */
   }
@@ -162,7 +162,7 @@
 
   .previous-lyrics {
 
-    color: white;
+    color: grey;
     text-align: center;
     transition: background-color 0.5s ease; /* for transparency transition */
   }
