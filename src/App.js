@@ -1,8 +1,9 @@
-import './App.css';
+import './styles.css';
 import { getLyrics } from './api.js';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from "react-use-precision-timer";
 import { updateText } from './utils';
+
 
 const State = {
   NoSong : 'NO_SONG',
@@ -31,10 +32,13 @@ const Timer = ({time}) => {
   )
 }  //Song timer
 
-const ProgresBar = () => {
+const ProgressBar = ({ time, endTime }) => {
+  var progress = time / endTime;
+  var widthBar = progress * 500;
+
   return (
-    <div>
-      
+    <div className="progress-bar-container">
+      <div className="progress-bar" style={{width: `${widthBar}%`}} /> 
     </div>
   )
 } //Progress Bar for the Song
@@ -172,7 +176,10 @@ function App() {
         currentText = {currentText}
         afterText = {afterText}
         nextPos = {nextPos} />
-        
+      <ProgressBar
+        time = {time}
+        endTime = {endTime}
+        /> 
 
     </div>
   );
