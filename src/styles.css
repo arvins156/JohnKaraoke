@@ -4,17 +4,18 @@
   
   body {
     background-color: #25283a;
-    margin-left: 30px;
   }
 
   .top-row-container {
     display: flex;
     flex-direction: row;
+    gap: 3vw;
   }
 
   .title-container {
     display: flex;
     flex-direction: row;
+    gap: 3vw;
   }
 
   .title {
@@ -25,6 +26,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 1vw;
   }
 
   .search-bar {
@@ -32,8 +34,9 @@
     justify-content: space-between;
     align-items: center; 
     background-color: #82a1f1;
-    width: 500px;
-    height: 40px;
+    width: 50vw;
+    height: 5vh;
+    min-height: 30px;
     border-radius: 25px;
     padding-left: 15px;
     border-radius: 5;
@@ -43,35 +46,66 @@
   .search-button {
     
   }
+
+  .middle-row-container {
+    position: fixed;
+    bottom: 50%;
+    left: 50%;
+  }
+
+  .bottom-row-container {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    position: fixed;
+    bottom: 1%;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 10vw;
+    gap: 0.1vw;
+  }
+
+  .play-button {
+    width: 5vw;
+  }
   
+  .pause-button {
+    width: 5vw;
+  }
+
+  .volume-up-button {
+    width: 5vw;
+  }
+
+  .volume-down-button {
+    width: 5vw;
+  }
+
   /* Container for the progress bar */
   .progress-bar-container {
     display: flex;
     flex-direction: row;
     align-items: center;
-    overflow: hidden;
-    gap: 10px;   
+    
+    gap: 1vw;
     /* position: relative; */
   }
   
   /* The actual progress indicator */
   .progress-bar {
-    width: 500px;
-    height: 25px;
+    width: 70vw;
+    height: 2.5vh;
+    border-radius: 8px;
     background-color: #82a1f1;
-    border-radius: 25px;
-    transition: width 0.3s ease;
+    transition: width 0.1s ease;
   }
-  
-  .play-button {
-    
-  }
-  
-  .pause-button {
-    
-  }
-  
+
   .elapsed-time {
+    width: 10px;
     text-align: right;
     color: white;
   }
