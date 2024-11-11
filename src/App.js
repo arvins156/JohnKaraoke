@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { useStopwatch } from 'react-timer-hook';
+import { useStopwatch } from "react-use-precision-timer";
 
 const State = {
   NoSong : 'NO_SONG',
@@ -10,18 +10,20 @@ const State = {
   Finished : 'FINISHED',
 };
 
-const LyricBody = () => {
+const LyricBody = ({lyrics, time, nextTime, beforeText, currentText, afterText, nextPos}) => {
+  //const {text1, text2, text3} = updateText(lyrics, time, nextTime, beforeText, currentText, afterText, nextPos);
   return (
     <div>
+      
       
     </div>
   )
 } //Lyric body
 
-const Timer = ({time, pauseTime}) => {
+const Timer = ({time}) => {
   return (
     <div>
-      <h1>{time.seconds}</h1>
+      <h1>{time.getElapsedRunningTime()}</h1>
     </div>
   )
 }  //Song timer
@@ -29,10 +31,11 @@ const Timer = ({time, pauseTime}) => {
 const ProgresBar = () => {
   return (
     <div>
-
+      
     </div>
   )
 } //Progress Bar for the Song
+
 const InputBox = ({input, handleInputChange}) => {
   return (
     <div>
@@ -72,25 +75,41 @@ const PauseButton = ({onClick}) => {
 }
 
 function App() {
-  const time = useStopwatch({ autoStart: false}) 
+  const time = useStopwatch();
   const [input, setInput] = useState("");
   const [state, setState] = useState(State.NoSong);
+  const [updateTimer, setUpdateTimer] = useState(0);
   const [endTime, setEndTime] = useState(0);
-
+  const [beforeText, setBeforeText] = useState("");
+  const [currentText, setCurrentText] = useState("");
+  const [afterText, setAfterText] = useState("");
 
   useEffect(() => {
+    let interval;
     if (state === State.Playing) {
-      time.start();
+      if (time.isStarted()){
+        time.resume();
+      } else {
+        time.start();
+      }
+      interval = setInterval(() => {
+        setUpdateTimer(updateTimer + 1);
+      }, 1000);
     } else if (state === State.Finished) {
-      time.pause();
+      clearInterval(interval)
+      time.stop();
     } else if (state === State.Paused) {
+      clearInterval(interval)
       time.pause();
     } else if (state === State.NotStarted) {
-      time.reset(0,false);
+      clearInterval(interval)
+      setUpdateTimer(0);
+      time.start();
+      time.pause();
       setInput("");
     } 
-    return;
-  }, [state]);
+    return () => clearInterval(interval);
+  }, [updateTimer, state]);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
