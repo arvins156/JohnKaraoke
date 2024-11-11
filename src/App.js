@@ -3,6 +3,9 @@ import { getLyrics } from './api.js';
 import { useState, useEffect } from 'react';
 import { useStopwatch } from "react-use-precision-timer";
 import { updateText } from './utils';
+import pauseButton from './assets/pause-button.svg'
+import playButton from './assets/play-button.svg'
+import searchButton from './assets/search-button.svg'
 
 var beforeText = "";
 var currentText ="";
@@ -46,7 +49,6 @@ function msToTime(s) {
   var secs = s % 60;
   s = (s - secs) / 60;
   var mins = s % 60;
-  var hrs = (s - mins) / 60;
 
   if (mins < 10) {
     mins = "0" + mins;
@@ -62,9 +64,8 @@ const Timer = ({time, endTime}) => {
   let t1 = msToTime(time);
   let t2 = msToTime(endTime);
   return (
-    <div>
-      <h1
-      class="elapsed-time">{t1} /{t2}</h1>
+    <div class="elapsed-time">
+      <h2>{t1}/{t2}</h2>
     </div>
   )
 }  //Song timer
@@ -74,7 +75,7 @@ const ProgressBar = ({ time, endTime }) => {
   return (
     <div>
       <progress value={progress}
-        className="progress-bar-container"/>
+        className="progress-bar"/>
     </div>
   )
 } //Progress Bar for the Song
@@ -87,7 +88,7 @@ const InputBox = ({input, handleInputChange}) => {
         placeholder = "Enter Spotify URL"
         value = {input}
         onChange = {handleInputChange}
-        className="search-bar-container"
+        className="search-bar"
       />
     </div>
   )
@@ -96,9 +97,8 @@ const InputBox = ({input, handleInputChange}) => {
 const SearchButton = ({onClick}) => {
   return (
     <button onClick={onClick}
-    src="assets/search-button.svg" 
     className="search-bar-button">
-      Search
+      <img src={searchButton} />
     </button>
   )
 }
@@ -107,9 +107,8 @@ const PlayButton = ({onClick, disabled}) => {
   return (
     <button onClick={onClick}
     disabled = {disabled}
-    img src="assets/play-button.svg" 
     className="play-button">
-      Play
+      <img src={playButton} />
     </button>
   )
 }
@@ -118,9 +117,8 @@ const PauseButton = ({onClick, disabled}) => {
   return (
     <button onClick={onClick}
     disabled = {disabled}
-    src="assets/pause-button.svg" 
     className="pause-button">
-      Pause
+      <img src={pauseButton} />
     </button>
   )
 }
@@ -199,10 +197,10 @@ function App() {
   }
 
   return (
-    <div class="main-page"> 
-      <div class="top-row-container">
-        <div class="title-container">
-          <div class="title">
+    <div className="main-page"> 
+      <div className="top-row-container">
+        <div className="title-container">
+          <div className="title">
             <h1>JohnKaraoke</h1>
           </div>
         </div>
@@ -217,13 +215,13 @@ function App() {
         </div>  
       </div>
     
-      <div class="middle-row-container">
+      <div className="middle-row-container">
         <LyricBody
           time = {time.getElapsedRunningTime()}/>
       </div>
   
-        <div class="bottom-row-container">
-          <div class="buttons-container">
+        <div className="bottom-row-container">
+          <div className="buttons-container">
             <PlayButton
               onClick={handlePlay}
               disabled = {state === State.NoSong}
@@ -235,18 +233,15 @@ function App() {
         </div>
         
 
-        <div>
+        <div className="progress-bar-container">
           <ProgressBar
             time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
             endTime = {endTime}/>
-            <div>
-            <Timer
-              time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
-              endTime = {endTime}
-            />
-            </div>
+          <Timer
+            time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
+            endTime = {endTime} />
         </div>
-    </div>
+      </div>
     </div>
   );
 }
