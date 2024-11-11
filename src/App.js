@@ -67,11 +67,9 @@ const Timer = ({time, endTime}) => {
 
 const ProgressBar = ({ time, endTime }) => {
   var progress = time / endTime;
-  var widthBar = progress * 500;
-  console.log(widthBar);
   return (
-    <div className="progress-bar-container">
-      <div className="progress-bar" style={{width: '$'+{widthBar}+'%'}} /> 
+    <div>
+      <progress value={progress}/>
     </div>
   )
 } //Progress Bar for the Song
@@ -214,7 +212,7 @@ function App() {
         time = {time.getElapsedRunningTime()}/>
 
       <ProgressBar
-        time = {time.getElapsedRunningTime()}
+        time = {time.getElapsedRunningTime() >= endTime ? endTime:time.getElapsedRunningTime()}
         endTime = {endTime}/>
     </div>
   );
