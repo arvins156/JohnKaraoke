@@ -148,14 +148,14 @@
 
   .current-lyrics {
 
-    color: grey;
+    color: white;
     text-align: center;
     transition: background-color 0.5s ease /* for transparency transition */
   }
 
   .future-lyrics {
 
-    color: white;
+    color: grey;
     text-align: center;
     transition: background-color 0.5s ease; /* for transparency transition */
   }
