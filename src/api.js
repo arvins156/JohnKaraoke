@@ -1,19 +1,17 @@
-const APIURL="http://localhost:8000/?url=https://open.spotify.com/track/7aux5UvnlBDYlrlwoczifW?si=ae05fba6cd7048ab"
+const APIURL="http://localhost:8000/?url="
 const OPTION = {
     method: 'GET',
 }
 
 export const getLyrics = (values) => {
-    console.log(APIURL + values);
-    return fetch (APIURL, OPTION) 
-    .then(reponse => {
-        return reponse.json()
-    })
+    return fetch (APIURL + values, OPTION) 
+    .then(reponse =>  reponse.json())
     .then(data => data.lines)
     .then(lines => {
-        lines.map(obj => {
-            return obj.startTimeMs = Number(obj.startTimeMs);
-        })
+        for (let i = 0; i < lines.length; i++ ) {
+            lines[i].startTimeMs = Number(lines[i].startTimeMs);
+        }
+        return lines;
     })
-    ;
 };
+

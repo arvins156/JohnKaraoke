@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react';
 import { useStopwatch } from "react-use-precision-timer";
 import { updateText } from './utils';
 
+var beforeText = "";
+var currentText ="";
+var afterText ="";
+var nextTime = 0;
+var nextPos = 1;
+var stateOfLines =[];
+
 const State = {
   NoSong : 'NO_SONG',
   NotStarted : 'NOT_STARTED',
@@ -12,21 +19,28 @@ const State = {
   Finished : 'FINISHED',
 };
 
-const LyricBody = ({lyrics, time, nextTime, beforeText, currentText, afterText, nextPos}) => {
-  const {text1, text2, text3} = updateText(lyrics, time, nextTime, beforeText, currentText, afterText, nextPos);
+const LyricBody = (time) => {
+  const {text1, text2, text3, nTime, pos} = updateText(stateOfLines, time, nextTime, beforeText, currentText, afterText, nextPos);
+  nextPos = pos;
+  beforeText = text1;
+  currentText = text2;
+  afterText = text3;
+  nextTime = nTime;
   return (
     <div>
       <span>{text1}</span>
-      <span>{text2}</span>
+      <div>
+        <span>{text2}</span>
+      </div>
       <span>{text3}</span>
     </div>
   )
 } //Lyric body
 
-const Timer = ({time}) => {
+const Timer = ({time, endTime}) => {
   return (
     <div>
-      <h1>{time.getElapsedRunningTime()}</h1>
+      <h1>{time.getElapsedRunningTime()} /{endTime}</h1>
     </div>
   )
 }  //Song timer
@@ -47,7 +61,6 @@ const InputBox = ({input, handleInputChange}) => {
         placeholder = "Enter Spotify URL"
         value = {input}
         onChange = {handleInputChange}
-        autofocus
       />
     </div>
   )
@@ -61,17 +74,19 @@ const SearchButton = ({onClick}) => {
   )
 }
 
-const PlayButton = ({onClick}) => {
+const PlayButton = ({onClick, disabled}) => {
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick}
+    disabled = {disabled}>
       Play
     </button>
   )
 }
 
-const PauseButton = ({onClick}) => {
+const PauseButton = ({onClick, disabled}) => {
   return (
-    <button onClick={onClick}>
+    <button onClick={onClick}
+    disabled = {disabled}>
       Pause
     </button>
   )
@@ -83,12 +98,6 @@ function App() {
   const [state, setState] = useState(State.NoSong);
   const [updateTimer, setUpdateTimer] = useState(0);
   const [endTime, setEndTime] = useState(0);
-  const [beforeText, setBeforeText] = useState("");
-  const [currentText, setCurrentText] = useState("");
-  const [afterText, setAfterText] = useState("");
-  const [nextTime, setNextTime] = useState(0);
-  const [nextPos, setNextPos] = useState(1);
-  const [stateOfLines, setStateOfLines] = useState([]);
 
   useEffect(() => {
     let interval;
@@ -103,7 +112,7 @@ function App() {
       }, 1000);
     } else if (state === State.Finished) {
       clearInterval(interval)
-      time.stop();
+      time.pause();
     } else if (state === State.Paused) {
       clearInterval(interval)
       time.pause();
@@ -114,6 +123,10 @@ function App() {
       time.pause();
       setInput("");
     } 
+    if (time.getElapsedRunningTime() >= endTime) {
+      setState(State.Finished);
+      clearInterval(interval);
+    }
     return () => clearInterval(interval);
   }, [updateTimer, state]);
 
@@ -127,10 +140,12 @@ function App() {
 
     getLyrics(input)
     .then(lines => {
-      setStateOfLines(lines);
-      setCurrentText(stateOfLines[0].words);
-      setAfterText(stateOfLines[1].words);
-      setNextTime(stateOfLines[1].startTimeMs);
+      stateOfLines = lines;
+      console.log(stateOfLines);
+      currentText = stateOfLines.at(0).words;
+      afterText = stateOfLines.at(1).words;
+      nextTime = stateOfLines.at(1).startTimeMs;
+      setEndTime(stateOfLines.at(stateOfLines.length - 1).startTimeMs);
     })
     .catch(error => console.error("Error fetching lyrics:", error)); 
   }
@@ -150,6 +165,7 @@ function App() {
       
       <Timer
         time = {time}
+        endTime = {endTime}
         />
       <InputBox
         input = {input}
@@ -160,20 +176,14 @@ function App() {
       />
       <PlayButton
         onClick={handlePlay}
+        disabled = {state == State.NoSong}
       />
       <PauseButton
         onClick={handlePause}
+        disabled = {state == State.NoSong}
       />
       <LyricBody
-        lyrics = {stateOfLines}
-        time = {time}
-        nextTime = {nextTime}
-        beforeText = {beforeText}
-        currentText = {currentText}
-        afterText = {afterText}
-        nextPos = {nextPos} />
-        
-
+        time = {time.getElapsedRunningTime()}/>
     </div>
   );
 }
