@@ -31,14 +31,15 @@ const LyricBody = (time) => {
   nextTime = nTime;
   return (
     <div>
-      <span
-        className="previous-lyrics">{text1}</span>
-      <div>
-        <span
-          className="current-lyrics">{text2}</span>
+      <div className="previous-lyrics">
+        <span>{text1}</span>
       </div>
-      <span 
-        className="future-lyrics">{text3}</span>
+      <div className="current-lyrics">
+        <span>{text2}</span>
+      </div>
+      <div  className="future-lyrics">
+        <span>{text3}</span>
+      </div>
     </div>
   )
 } //Lyric body
