@@ -35,6 +35,7 @@ const LyricBody = (time) => {
         <h2>{text1}</h2>
       </div>
       <div className="current-lyrics">
+
         <h1>{text2}</h1>
       </div>
       <div  className="future-lyrics">
